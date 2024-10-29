@@ -24,7 +24,7 @@
         <div class="bg">
             <nav class="navbar navbar-expand-lg fixed-top">
 
-                <div class="container">
+                <div class="container mt-0">
 
                     <a class="navbar-brand mt-0" href="master.jsp" title="Ir al panel principal" style="font-size: 150%; color:#000;"><i class="bi bi-car-front-fill" style="font-size: 300%; color:#000;"></i></a>
 
