@@ -17,10 +17,11 @@ public class sr_puestos extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
-            // Instancia del modelo 'Puesto'
+            // Instancia del modelo 'Puesto' con el nuevo campo 'estado'
             puesto = new Puesto(
-                Integer.valueOf(request.getParameter("txt_id")), // ID del puesto
-                request.getParameter("txt_nombre") // Nombre del puesto
+                Integer.parseInt(request.getParameter("txt_id")), // ID del puesto
+                request.getParameter("txt_nombre"), // Nombre del puesto
+                Integer.parseInt(request.getParameter("txt_estado")) // Estado del puesto (0: Inactivo, 1: Activo)
             );
 
             // Acción al presionar "Agregar"
