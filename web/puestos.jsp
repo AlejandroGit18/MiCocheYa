@@ -18,8 +18,16 @@
                             <form action="sr_puestos" method="post" class="form-group">
                                 <label for="lbl_id"><b>ID</b></label>
                                 <input type="text" name="txt_id" id="txt_id" class="form-control" value="0" readonly>
+                                
                                 <label for="lbl_nombre"><b>Nombre Puesto</b></label>
                                 <input type="text" name="txt_nombre" id="txt_nombre" class="form-control" placeholder="Ejemplo: Gerente" required>
+                                
+                                <label for="lbl_estado"><b>Estado</b></label>
+                                <select name="txt_estado" id="txt_estado" class="form-control" required>
+                                    <option value="1">Activo</option>
+                                    <option value="0">Inactivo</option>
+                                </select>
+                                
                                 <br>
                                 
                                 <button name="btn_agregar" id="btn_agregar" value="agregar" class="btn btn-outline-success btn-lg">Agregar</button>
@@ -34,6 +42,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Nombre</th>
+                                        <th>Estado</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbl_puestos">
@@ -47,12 +56,17 @@
                                                 out.println("<tr data-id='" + tabla.getValueAt(t, 0) + "'>");
                                                 out.println("<td>" + tabla.getValueAt(t, 0) + "</td>"); // ID en la columna 0
                                                 out.println("<td>" + tabla.getValueAt(t, 1) + "</td>"); // Nombre en la columna 1
+                                                
+                                                // Estado en la columna 2
+                                                String estado = (tabla.getValueAt(t, 2).toString().equals("1")) ? "Activo" : "Inactivo";
+                                                out.println("<td>" + estado + "</td>");
+                                                
                                                 out.println("</tr>");
                                             }
                                         } else {
                                             // Si no hay datos, mostramos un mensaje
                                             out.println("<tr>");
-                                            out.println("<td colspan='2' style='text-align: center;'>No hay datos disponibles</td>");
+                                            out.println("<td colspan='3' style='text-align: center;'>No hay datos disponibles</td>");
                                             out.println("</tr>");
                                         }
                                     %>
@@ -65,7 +79,6 @@
         </div>
 
         <jsp:include page="footer.jsp" />
-
 
         <script src="${pageContext.request.contextPath}/js/puesto.js"></script>
 

@@ -8,15 +8,17 @@ import javax.swing.table.DefaultTableModel;
 public class Puesto {
     private int id_puesto;
     private String nombre;
+    private int estado; // Nuevo campo 'estado'
     Conexion cn;
 
     // Constructor vacío
     public Puesto() {}
 
     // Constructor con parámetros
-    public Puesto(int id_puesto, String nombre) {
+    public Puesto(int id_puesto, String nombre, int estado) {
         this.id_puesto = id_puesto;
         this.nombre = nombre;
+        this.estado = estado;
     }
 
     // Getters y Setters
@@ -36,21 +38,30 @@ public class Puesto {
         this.nombre = nombre;
     }
 
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
     // Método para leer los datos de la tabla TBL_PUESTOS
     public DefaultTableModel leer() {
         DefaultTableModel tabla = new DefaultTableModel();
         try {
             cn = new Conexion();
             cn.abrir_conexion();
-            String query = "SELECT id_puesto, nombre FROM TBL_PUESTOS;";
+            String query = "SELECT id_puesto, nombre, estado FROM TBL_PUESTOS;";
             ResultSet consulta = cn.conexionBD.createStatement().executeQuery(query);
-            String encabezado[] = {"ID Puesto", "Nombre"};
+            String encabezado[] = {"ID Puesto", "Nombre", "Estado"};
             tabla.setColumnIdentifiers(encabezado);
 
-            String datos[] = new String[2];
+            String datos[] = new String[3];
             while (consulta.next()) {
                 datos[0] = consulta.getString("id_puesto");
                 datos[1] = consulta.getString("nombre");
+                datos[2] = consulta.getString("estado");
                 tabla.addRow(datos);
             }
 
@@ -67,10 +78,11 @@ public class Puesto {
         try {
             PreparedStatement parametro;
             cn = new Conexion();
-            String query = "INSERT INTO TBL_PUESTOS(nombre) VALUES(?);";
+            String query = "INSERT INTO TBL_PUESTOS(nombre, estado) VALUES(?, ?);";
             cn.abrir_conexion();
             parametro = (PreparedStatement) cn.conexionBD.prepareStatement(query);
             parametro.setString(1, getNombre());
+            parametro.setInt(2, getEstado()); // Agregar el valor del estado
             retorno = parametro.executeUpdate();
             cn.cerrar_conexion();
         } catch (SQLException ex) {
@@ -85,11 +97,12 @@ public class Puesto {
         try {
             PreparedStatement parametro;
             cn = new Conexion();
-            String query = "UPDATE TBL_PUESTOS SET nombre = ? WHERE id_puesto = ?;";
+            String query = "UPDATE TBL_PUESTOS SET nombre = ?, estado = ? WHERE id_puesto = ?;";
             cn.abrir_conexion();
             parametro = (PreparedStatement) cn.conexionBD.prepareStatement(query);
             parametro.setString(1, getNombre());
-            parametro.setInt(2, getId_puesto());
+            parametro.setInt(2, getEstado()); // Modificar el estado
+            parametro.setInt(3, getId_puesto());
             retorno = parametro.executeUpdate();
             cn.cerrar_conexion();
         } catch (SQLException ex) {
