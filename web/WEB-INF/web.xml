@@ -5,12 +5,16 @@
         <servlet-class>controlador.sr_puestos</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>sr_puestos</servlet-name>
-        <servlet-class>controlador.sr_puestos</servlet-class>
+        <servlet-name>sr_marcas</servlet-name>
+        <servlet-class>controlador.sr_marcas</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>sr_puestos</servlet-name>
         <url-pattern>/sr_puestos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sr_marcas</servlet-name>
+        <url-pattern>/sr_marcas</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
